@@ -9,4 +9,4 @@
                  [org.clojure/test.check "0.7.0"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [org.clojure/core.match "0.3.0-alpha4"]
-                 [net.mikera/core.matrix "0.32.1"]])
+                 [net.mikera/core.matrix "0.33.2"]])
