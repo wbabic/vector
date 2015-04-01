@@ -1,0 +1,32 @@
+* vector
+  A clojure app for exploring linear algebra and differentioal equations
+
+** Usage
+   lein repl
+
+** write graph data to fil in edn format
+
+*** references
+    Clojure edn walkthrough
+    http://www.compoundtheory.com/clojure-edn-walkthrough/
+
+    edn-format
+    https://github.com/edn-format/edn
+
+    API
+    http://clojure.github.io/clojure/clojure.edn-api.html
+
+    clojure cookbook
+    reading and writing clojure data
+    https://github.com/clojure-cookbook/clojure-cookbook/blob/master/04_local-io/4-14_read-write-clojure-data-structures.asciidoc
+
+
+*** notes
+    pr and prn print in a way that can be read by the clojure reader
+
+** License
+
+Copyright © 2015 FIXME
+
+Distributed under the Eclipse Public License either version 1.0 or (at
+your option) any later version.
