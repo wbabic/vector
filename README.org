@@ -1,11 +1,11 @@
 * vector
   A clojure app for exploring linear algebra and differentioal equations
+  and algorithms
 
 ** Usage
    lein repl
 
-** write graph data to fil in edn format
-
+** write graph data to file in edn format
 *** references
     Clojure edn walkthrough
     http://www.compoundtheory.com/clojure-edn-walkthrough/
@@ -20,13 +20,63 @@
     reading and writing clojure data
     https://github.com/clojure-cookbook/clojure-cookbook/blob/master/04_local-io/4-14_read-write-clojure-data-structures.asciidoc
 
-
 *** notes
     pr and prn print in a way that can be read by the clojure reader
 
+** euclidean algorithm
+   the art of computer programming
+
+   euclid.clj
+
+   permutaions and combinations
+   pascals triangle
+   factorial
+   integer partition
+   combinatorics
+   concrete programming
+   tower of hanoi
+   graphs
+   loom
+   visualizing algorithms
+
+** turning cats into dogs
+   https://jkkramer.wordpress.com/2010/08/27/fun-with-clojure%C2%A0turning-cats-into-dogs-in-hanoi/
+   https://gist.github.com/jkk/608728
+   http://codekata.com/kata/kata19-word-chains/
+   http://ubietylab.net/ubigraph/
+
+   wordchains.clj
+   breadth-first search
+
+** tower of hanoi
+   https://jkkramer.wordpress.com/2010/08/27/fun-with-clojure%C2%A0turning-cats-into-dogs-in-hanoi/
+   Concrete Mathematics
+
+   three pegs
+   n discs initially stacked in decreasing size on one of the pegs
+   transfer the entire tower from one peg to another,
+   moving one disk at a time,
+   never moving a larger onto a smaller
+
+   hanoi.clj
+   Each possible position in the game is a node.
+   Nodes connect to each other via possible moves.
+
+   A moves function takes a game state and returns valid neighboring states.
+
+** references
+   http://en.wikipedia.org/wiki/Sierpinski_triangle
+   http://en.wikipedia.org/wiki/Apollonian_gasket
+   https://github.com/aysylu/loom
+   http://aysy.lu/loom/loom.graph.html#var-Graph
+   http://www.cut-the-knot.org/triangle/Hanoi.shtml
+   http://users.math.yale.edu/users/mandelbrot/web_pdfs/encyclopediaBritannica.pdf
+
+   http://clojure.github.io/math.numeric-tower/
+   https://github.com/clojure/math.combinatorics
+
 ** License
+   Copyright © 2015 FIXME
 
-Copyright © 2015 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+   Distributed under the Eclipse Public License either version 1.0 or (at
+   your option) any later version.
