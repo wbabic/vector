@@ -75,6 +75,15 @@
    http://clojure.github.io/math.numeric-tower/
    https://github.com/clojure/math.combinatorics
 
+   art of computer programming
+   concrete mathematics
+   book of numbers
+   intro to algorithms
+
+   http://en.wikipedia.org/wiki/Generating_function
+   http://en.wikipedia.org/wiki/Enumerative_combinatorics
+   http://en.wikipedia.org/wiki/Partition_%28number_theory%29#Ferrers_diagram
+
 ** License
    Copyright © 2015 FIXME
 
