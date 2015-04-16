@@ -1,6 +1,6 @@
 * vector
-  A clojure app for exploring linear algebra and differentioal equations
-  and algorithms
+  A clojure app for exploring linear algebra, differentioal equations and
+  algorithms
 
 ** Usage
    lein repl
@@ -49,7 +49,6 @@
    breadth-first search
 
 ** tower of hanoi
-   https://jkkramer.wordpress.com/2010/08/27/fun-with-clojure%C2%A0turning-cats-into-dogs-in-hanoi/
    Concrete Mathematics
 
    three pegs
@@ -64,25 +63,59 @@
 
    A moves function takes a game state and returns valid neighboring states.
 
+** polynmials
+   https://www.fpcomplete.com/user/Sam567/computational-physics/beginner-s-tools/polynomials
+   https://courses.edx.org/courses/SchoolYourself/AlgebraX/1T2015/courseware/
+
+   polynimial.clj
+
+   http://en.wikipedia.org/wiki/Polynomial
+   https://github.com/levand/prolin
+   https://github.com/benzitohhh/hello-clojure/blob/master/src/hello_clojure/polynomial.clj
+   https://github.com/clojure-numerics/expresso/blob/master/src/main/clojure/numeric/expresso/impl/polynomial.clj
+   http://hoteljavaopensource.blogspot.com/2013/08/clojure-and-polynomials.html
 ** references
-   http://en.wikipedia.org/wiki/Sierpinski_triangle
-   http://en.wikipedia.org/wiki/Apollonian_gasket
-   https://github.com/aysylu/loom
-   http://aysy.lu/loom/loom.graph.html#var-Graph
-   http://www.cut-the-knot.org/triangle/Hanoi.shtml
-   http://users.math.yale.edu/users/mandelbrot/web_pdfs/encyclopediaBritannica.pdf
+*** loom
+    https://jkkramer.wordpress.com/2010/08/27/fun-with-clojure%C2%A0turning-cats-into-dogs-in-hanoi/
+    https://gist.github.com/jkk/608728
+    https://github.com/aysylu/loom
+    http://aysy.lu/loom/loom.graph.html#var-Graph
+*** sierpensky and apollonian gaskets
+    http://en.wikipedia.org/wiki/Sierpinski_triangle
+    http://en.wikipedia.org/wiki/Apollonian_gasket
+*** cut the knot
+    http://www.cut-the-knot.org/triangle/Hanoi.shtml
+*** fractals
+    fractal nature
+    http://users.math.yale.edu/users/mandelbrot/web_pdfs/encyclopediaBritannica.pdf
+*** clojure libs
+    http://clojure.github.io/math.numeric-tower/
+    https://github.com/clojure/math.combinatorics
 
-   http://clojure.github.io/math.numeric-tower/
-   https://github.com/clojure/math.combinatorics
+*** books
+    art of computer programming
+    concrete mathematics
+    book of numbers
+    intro to algorithms
 
-   art of computer programming
-   concrete mathematics
-   book of numbers
-   intro to algorithms
+*** combinatorics
+    http://en.wikipedia.org/wiki/Generating_function
+    http://en.wikipedia.org/wiki/Enumerative_combinatorics
+    http://en.wikipedia.org/wiki/Partition_%28number_theory%29#Ferrers_diagram
 
-   http://en.wikipedia.org/wiki/Generating_function
-   http://en.wikipedia.org/wiki/Enumerative_combinatorics
-   http://en.wikipedia.org/wiki/Partition_%28number_theory%29#Ferrers_diagram
+*** graphviz
+    http://www.graphviz.org/content/attrs
+    https://github.com/daveray/dorothy
+    https://github.com/ztellman/rhizome
+
+    Basic Graph Drawing
+    http://www.graphviz.org/Documentation/dotguide.pdf
+
+    Gallery
+    http://www.graphviz.org/Gallery.php
+*** CSS grids
+    https://css-tricks.com/dont-overthink-it-grids/
+    http://codepen.io/chriscoyier/pen/eGcLw
 
 ** License
    Copyright © 2015 FIXME

@@ -12,4 +12,5 @@
                  [net.mikera/core.matrix "0.33.2" :exclusions [org.clojure/clojure]]
                  [org.clojure/math.numeric-tower "0.0.4"]
                  [org.clojure/math.combinatorics "0.1.1"]
-                 [aysylu/loom "0.5.0"]])
+                 [aysylu/loom "0.5.0"]
+                 [expresso "0.2.0"]])
