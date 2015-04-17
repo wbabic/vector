@@ -2,23 +2,27 @@
 
 (defn to-string
   "return a string represnetaion of a polynomial
-  in given variable"
-  [poly variable]
-  (let [var-pow (fn [pow]
-                  (cond
-                    (zero? pow) ""
-                    (= 1 pow) variable
-                    :else (str variable "^" pow)))
-        pr-item (fn [item]
-                  (cond
-                    (zero? item) ""
-                    (= 1 item) ""
-                    :else item))]
-    (clojure.string/join " + "
-                         (reverse
-                          (map-indexed
-                           (fn [index item] (str (pr-item item) (var-pow index)))
-                           poly)))))
+  in given variable, defaults to x"
+  ([poly] (to-string poly "x"))
+  ([poly variable]
+   (let [var-pow (fn [coefficient pow]
+                   (cond
+                     (zero? coefficient) nil
+                     (zero? pow) ""
+                     (= 1 pow) variable
+                     :else (str variable "^" pow)))
+         pr-coefficient (fn [coefficient exponent]
+                   (cond
+                     (zero? coefficient) nil
+                     (= 1 coefficient) (if (zero? exponent) "1"  "")
+                     :else coefficient))]
+     (clojure.string/join " + "
+                          (filter (comp not empty?)
+                                  (map-indexed
+                                   (fn [exponent coefficient]
+                                     (str (pr-coefficient coefficient exponent)
+                                          (var-pow coefficient exponent)))
+                                   poly))))))
 
 (def zero-poly [])
 (defn zero-poly? [poly] (empty? poly))
@@ -63,6 +67,14 @@
     (add (scal-mult (first p1) p2)
          (mult-by-x (mult (rest p1) p2)))))
 
+(defn mult-recur
+  "multiply two polynomials"
+  [p1 p2]
+  (if (zero-poly? p1)
+    zero-poly
+    (add (scal-mult (first p1) p2)
+         (mult (mult-by-x (rest p1)) p2))))
+
 (defn eval-poly
   "evaluate a ploynomial at given number"
   [poly number]
@@ -89,3 +101,20 @@
    (poly/mult [3 1] [4 1 1]) "q")
   (poly/to-string
    (poly/mult [4 -2 -2] [2 3]) "t"))
+
+
+(comment
+  ;; 2 dice
+  (def d [0 1 1 1 1 1 1])
+  (poly/mult d d)
+  (poly/to-string (poly/mult d d))
+  ;;=> "x^12 + 2x^11 + 3x^10 + 4x^9 + 5x^8 + 6x^7 + 5x^6 + 4x^5 + 3x^4 + 2x^3 + x^2"
+  (get (poly/mult d d) 6)
+  ;;=> 5
+
+  (def p1 [1 1 1 1 1 1 1 1 1 1 1])
+  (def p2 [1 0 1 0 1 0 1 0 1 0 1])
+  (poly/to-string p1)
+  (poly/to-string p2)
+  (poly/to-string (poly/mult p1 p2))
+  )
