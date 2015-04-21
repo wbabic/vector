@@ -87,6 +87,7 @@
                    (print-point s)
                    (println "distance: " (f d))
                    (println "l1: " (f l1))
+
                    (println "l2: " (f l2))))
                (recur))
              [:end] (println "end")))))

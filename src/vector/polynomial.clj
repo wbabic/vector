@@ -117,4 +117,9 @@
   (poly/to-string p1)
   (poly/to-string p2)
   (poly/to-string (poly/mult p1 p2))
+
+  (def p3 [1 1 1 1 1 1 1 1 1 1 1])
+  (poly/to-string p3)
+  (poly/to-string (poly/mult p3 p3))
+
   )
