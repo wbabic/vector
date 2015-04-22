@@ -1,4 +1,5 @@
-(ns vector.factorial)
+(ns vector.factorial
+  (:require [clojure.math.combinatorics :as combo]))
 
 (defn factorial [n] (reduce * (range 1 (inc n))))
 

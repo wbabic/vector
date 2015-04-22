@@ -74,6 +74,39 @@
    https://github.com/benzitohhh/hello-clojure/blob/master/src/hello_clojure/polynomial.clj
    https://github.com/clojure-numerics/expresso/blob/master/src/main/clojure/numeric/expresso/impl/polynomial.clj
    http://hoteljavaopensource.blogspot.com/2013/08/clojure-and-polynomials.html
+** enumerative combinatorics
+   http://en.wikipedia.org/wiki/Enumerative_combinatorics
+
+   the number of ways a certain pattern can be formed
+   counting combinations
+   counting permutations
+
+   the number of orderings of a deck of 52 cards
+   is 52!
+
+   recurrence relation
+   generating function
+
+** binomial cooficients
+   Pascal's triangle
+   C(n,k)
+   using symmetry C(n,k) = C(n,n-k)
+   from n = 0 to 100
+   k = 0 to floor(n/2)
+   C(n,k) = 0 if n<0 or k>n
+
+   http://en.wikipedia.org/wiki/Binomial_theorem
+   http://en.wikipedia.org/wiki/Binomial_series
+   http://en.wikipedia.org/wiki/Generating_function
+   http://en.wikipedia.org/wiki/Fibonacci_number
+        #Closed-form_expression
+   http://en.wikipedia.org/wiki/Recurrence_relation
+        #Linear_homogeneous_recurrence_relations_with_constant_coefficients
+   http://en.wikipedia.org/wiki/Characteristic_polynomial
+   http://en.wikipedia.org/wiki/Catalan_number
+   http://en.wikipedia.org/wiki/Enumerative_combinatorics
+   http://en.wikipedia.org/wiki/Twelvefold_way
+
 ** references
 *** loom
     https://jkkramer.wordpress.com/2010/08/27/fun-with-clojure%C2%A0turning-cats-into-dogs-in-hanoi/
