@@ -75,6 +75,14 @@
     (add (scal-mult (first p1) p2)
          (mult (mult-by-x (rest p1)) p2))))
 
+(defn pow
+  "raise poly to the nth power"
+  [poly n]
+  (loop [p poly n n]
+    (cond (zero? n) unit-poly
+          (= 1 n) p
+          :else (recur (mult p poly) (dec n)))))
+
 (defn eval-poly
   "evaluate a ploynomial at given number"
   [poly number]
@@ -122,4 +130,24 @@
   (poly/to-string p3)
   (poly/to-string (poly/mult p3 p3))
 
+  ;; binomial cooficients
+  ;; (1 + x)^n
+  (poly/pow [1 1] 2)
+  (time (poly/pow [1 1] 20))
+  ;;=> "Elapsed time: 51.465886 msecs"
+  ;; see pascal and factorial
+  (require '[vector.pascal :as p] :reload)
+  (require '[vector.factorial :as fac] :reload)
+  (time (let [n 20] (vec (for [k (range (inc n))] (p/C n k)))))
+  ;;=> "Elapsed time: 17.739452 msecs"
+  ;;=> "Elapsed time: 1.537301 msecs"
+  (time (let [n 20] (vec (for [k (range (inc n))] (fac/choose n k)))))
+  ;;=> "Elapsed time: 15.662246 msecs"
+  ;;=> "Elapsed time: 1.582086 msecs"
+  (time (let [n 49] (vec (for [k (range (inc n))] (p/C n k)))))
+  ;;=> "Elapsed time: 1.732413 msecs"
+  ;;=> "Elapsed time: 1.00644 msecs"
+  (time (let [n 49] (vec (for [k (range (inc n))] (fac/choose n k)))))
+  ;;=> "Elapsed time: 25.28586 msecs"
+  ;;=> "Elapsed time: 11.117085 msecs"
   )

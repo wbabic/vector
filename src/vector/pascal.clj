@@ -22,7 +22,6 @@
 
   )
 
-
 (defn pr-pascal
   "print first n rows of Pascal's triangle"
   [n]
@@ -55,7 +54,7 @@
         m (mid n)]
     ;; n < 0 or k > n returns 0
     ;; n > 100 returns error
-    (if (< n m)
+    (if (< k m)
       (get-in c [n k])
       (get-in c [n (- n k)]))))
 
