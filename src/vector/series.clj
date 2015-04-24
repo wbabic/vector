@@ -19,11 +19,6 @@ note that this starts with 0"
   ;;=> 0 1 .. 100
   )
 
-(defn power-1
-  "return a^n"
-  [a n]
-  (Math/pow a n))
-
 (defn power
   "using math.numeric-tower"
   [x y]

@@ -130,6 +130,8 @@
     concrete mathematics
     book of numbers
     intro to algorithms
+    sequnces and series
+    applied and computational complex analysis
 
 *** combinatorics
     http://en.wikipedia.org/wiki/Generating_function
