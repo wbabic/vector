@@ -88,6 +88,7 @@
   (into [] g/take-ten g/one)
   (into [] g/take-ten (g/zm 1))
   (into [] g/take-ten g/zn)
+  (into [] g/take-ten (g/zm 4))
 
   ;; geometric series 1/(1 - cz)
   ;; for various values of c
