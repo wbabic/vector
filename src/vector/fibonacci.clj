@@ -88,11 +88,6 @@
         f (invert rt5)]
     (mult f (minus an bn))))
 
-(defn equals
-  [[a1 b1] [a2 b2]]
-  (and (= a1 a2)
-       (= b1 b2)))
-
 (comment
   (f/add f/alpha f/beta)
   (f/mult f/alpha f/beta)

@@ -47,8 +47,11 @@
 
    wordchains.clj
    breadth-first search
+   hanoi.clj
 
 ** tower of hanoi
+   hanoi.clj
+
    Concrete Mathematics
 
    three pegs
@@ -57,17 +60,18 @@
    moving one disk at a time,
    never moving a larger onto a smaller
 
-   hanoi.clj
    Each possible position in the game is a node.
    Nodes connect to each other via possible moves.
 
    A moves function takes a game state and returns valid neighboring states.
 
-** polynmials
+** polynomials
+   polynomial.clj
+
+   add and multiply polynomials
+
    https://www.fpcomplete.com/user/Sam567/computational-physics/beginner-s-tools/polynomials
    https://courses.edx.org/courses/SchoolYourself/AlgebraX/1T2015/courseware/
-
-   polynimial.clj
 
    http://en.wikipedia.org/wiki/Polynomial
    https://github.com/levand/prolin
@@ -87,13 +91,17 @@
    recurrence relation
    generating function
 
-** binomial cooficients
+** pascal's triangle and binomial cooficients
+   pascal.clj
+
    Pascal's triangle
    C(n,k)
    using symmetry C(n,k) = C(n,n-k)
    from n = 0 to 100
    k = 0 to floor(n/2)
    C(n,k) = 0 if n<0 or k>n
+
+   Catalan numbers
 
    http://en.wikipedia.org/wiki/Binomial_theorem
    http://en.wikipedia.org/wiki/Binomial_series
@@ -106,6 +114,52 @@
    http://en.wikipedia.org/wiki/Catalan_number
    http://en.wikipedia.org/wiki/Enumerative_combinatorics
    http://en.wikipedia.org/wiki/Twelvefold_way
+
+** fibonacci numbers
+   calculate nth fibonacci directly
+   using powers of phi exactly, keeping the root 5 in tact
+   add, multiply, take nth powers of
+   (1 +- root(5))/2
+   explore fibonacci properties
+** factorial
+   factorial.clj
+   factorial lazy sequence
+   falling-factorial
+   choose n k
+
+** complex
+   complex.clj
+   vector representation of a complex number
+   add mult pow modulus argument mult-inverse
+** series
+** formal power series
+   fps.clj
+
+   add two fps
+   take cauchy product of two series
+
+** generating functions
+   simple sequnces and their generationg functions
+   transducers
+
+   Concrete Mathematics
+   clojure.org/transducers
+
+   generating functions
+   1 z^m 1/(1-z) e^z (1+z)^n
+
+   compositions
+
+   operations on fps
+   sum product
+   compose with a c*z
+   mult-by-z
+   differentiate
+   integrate
+   mult by 1/(1-z)
+   drop first m-1 terms
+
+   an algebra of formal power series
 
 ** references
 *** loom
