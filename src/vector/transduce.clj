@@ -12,11 +12,19 @@
 (def e (eduction (map first) (iterate f2 [1 0])))
 
 ;; binomial
-(defn f3 [r]
-  (fn [[s k]]
-    [(/ (* s (- r k)) k) (inc k)]))
-(defn binomial [r]
-  (eduction (map first) (iterate (f3 r) [1 1])))
+;; (1+cx)^r
+(defn f3
+  ([r]
+   (fn [[s k]]
+     [(/ (* s (- r k)) k) (inc k)]))
+  ([r c]
+   (fn [[s k cn]]
+     [(/ (* cn s (- r k)) k) (inc k) (* c cn)])))
+(defn binomial
+  ([r]
+   (eduction (map first) (iterate (f3 (inc r)) [1 1])))
+  ([r c]
+   (eduction (map first) (iterate (f3 r c) [1 1 1]))))
 
 ;; fibonacci
 (def f4 (fn [[a b]] [b (+' a b)]))
