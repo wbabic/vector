@@ -24,7 +24,7 @@
   ([r]
    (eduction (map first) (iterate (f3 (inc r)) [1 1])))
   ([r c]
-   (eduction (map first) (iterate (f3 r c) [1 1 1]))))
+   (eduction (map first) (iterate (f3 (inc r) c) [1 1 1]))))
 
 ;; fibonacci
 (def f4 (fn [[a b]] [b (+' a b)]))
@@ -46,5 +46,9 @@
 
   (take 10 (iterate t/f4 [0 1]))
   (take 20 t/fibs)
+
+  ;; sequence of partial sums
+  (take 10 (reductions + (t/geo (/ 2))))
+  ;; (1 3/2 7/4 15/8 31/16 63/32 127/64 255/128 511/256 1023/512)
 
   )
