@@ -13,27 +13,12 @@
 (defn sum-fibs-squared [n]
   (reduce + (take n (map square (fibs)))))
 
-(comment
-  (require '[vector.fibonacci :as f] :reload)
-
-  (take 15 (f/fibs))
-
-  (take 15 (map square (f/fibs)))
-  ;;=> (0 1 1 4 9 25 64 169 441 1156 3025 7921 20736 54289 142129)
-  (map f/sum-fibs-squared (range 1 11))
-  ;;=> (0 1 2 6 15 40 104 273 714 1870)
-
-  ;; now look at the product of two adjacent fibs
-  (take 10 (partition 2 1 (f/fibs)))
-  (->> (take 10 (partition 2 1(f/fibs)))
-       (map vec)
-       (map (fn [[f1 f2]] (* f1 f2))))
-  ;;=> (0 1 2 6 15 40 104 273 714 1870)
-  )
-
 ;; represent as an extension of rationals
 ;; 1/2(1 +- sqrt(5))
-;; a + b * sqrt-5 asa vector [a b]
+;; a + b * sqrt-5 as a vector [a b]
+
+(def one [1 0])
+(def rt5 [0 1])
 
 (defn as-decimal [[a b]]
   (+ a (* b (Math/sqrt 5))))
@@ -65,9 +50,6 @@
   [a b]
   (mult a (invert b)))
 
-(def one [1 0])
-(def rt5 [0 1])
-
 (defn pow
   "raise to the nth power"
   [a n]
@@ -89,17 +71,34 @@
     (mult f (minus an bn))))
 
 (comment
+  (require '[vector.fibonacci :as f] :reload)
+
+  (take 15 (f/fibs))
+  (take 15 (map square (f/fibs)))
+  ;;=> (0 1 1 4 9 25 64 169 441 1156 3025 7921 20736 54289 142129)
+  (map f/sum-fibs-squared (range 1 11))
+  ;;=> (0 1 2 6 15 40 104 273 714 1870)
+
+  ;; now look at the product of two adjacent fibs
+  (take 10 (partition 2 1 (f/fibs)))
+  (->> (take 10 (partition 2 1(f/fibs)))
+       (map vec)
+       (map (fn [[f1 f2]] (* f1 f2))))
+  ;;=> (0 1 2 6 15 40 104 273 714 1870)
   (f/add f/alpha f/beta)
+  ;;=> [1N 0N]
   (f/mult f/alpha f/beta)
+  ;;=> [-1N 0N]
 
   ;; beta = -1/alpha
   (= (f/negate (f/invert f/alpha)) f/beta)
+
   ;; beta = 1 - alpha
   (= f/beta (f/minus f/one f/alpha))
 
   ;; solutions to
   ;; x^2 = x + 1
-  (let [f (fn [a] (= (f/mult a a) (f/add f/one a)))]
+  (let [f (fn [x] (= (f/mult x x) (f/add x f/one)))]
     [(f f/alpha) (f f/beta)])
   ;; beta - alpha = rt5
   (= f/rt5 (f/minus f/alpha f/beta))
@@ -107,4 +106,5 @@
   ;; pow
   (= (f/pow f/alpha 2) (f/mult f/alpha f/alpha))
   (= (f/pow f/alpha 3) (f/mult f/alpha (f/mult f/alpha f/alpha)))
+
   )
