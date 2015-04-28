@@ -3,8 +3,14 @@
 
 (defn factorial [n] (reduce *' (range 1 (inc n))))
 
-(defn falling-factorial [n k]
-  (reduce *' (map #(- n %) (range k))))
+(defn falling-factorial
+  "r^kbar
+  r to the k falling
+  k integer >= 0"
+  [r k]
+  (assert (integer? k))
+  (assert (>= k 0))
+  (reduce *' (map #(- r %) (range k))))
 
 (defn choose [n k]
   (/ (falling-factorial n k) (factorial k)))
