@@ -172,6 +172,42 @@
    pochhammer symbol
    http://en.wikipedia.org/wiki/Pochhammer_symbol
 
+
+   Higher Transcendental Functions
+   Harry Bateman vol1 pdf
+   http://apps.nrbook.com/bateman/Vol1.pdf
+   numenor:~/dev/math/bateman-Vol1.pdf
+   Gamma function, Hypergeometric function, Legendre functions,
+   Generalized Hypergeometric series, Confluent Hypergeometric function
+   http://apps.nrbook.com/bateman/Vol2.pdf
+   Bessel functions
+   http://apps.nrbook.com/bateman/Vol3.pdf
+   Automorphic functions, Lame functions, Mathieu functions,
+   Spheroidal wave functions, Ellipsoidal wave functions,
+   Functions of number theory, Generating functions
+
+   http://www.encyclopediaofmath.org/index.php/Hypergeometric_function
+   http://mathworld.wolfram.com/HypergeometricFunction.html
+
+   Computation of Hypergeometric Functions
+   John Pearson Worcester College
+   http://people.maths.ox.ac.uk/porterm/research/pearson_final.pdf
+   numenor:~/dev/math/pearson_final.pdf
+   MATLAB, double precision
+
+   books I have:
+   Henrici
+   Whittaker, Watson
+   Arfken
+   Courant, Hilbert
+   Graham, Knuth
+   Knuth, Art of Programming, Vol1
+
+   books I want:
+   Knuth, Art of Programming, Vol2
+
+   mathematicians
+   Euler Gauss Kummer Riemann Schwarz
 ** references
 *** loom
     https://jkkramer.wordpress.com/2010/08/27/fun-with-clojure%C2%A0turning-cats-into-dogs-in-hanoi/

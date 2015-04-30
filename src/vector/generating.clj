@@ -58,6 +58,13 @@
         (map #(/ 1 (fac/factorial %)))
         non-negs))
 
+;; ln 1/(1-z)
+;; (0 1 1/2 1/3 1/4 ...)
+(def ln-1 (lazy-cat [0] (map #(/ 1 %) nats)))
+;; ln(1+z)
+;; (0 1 -1/2 1/3 -1/4 ...)
+(def ln-2 (lazy-cat [0] (map #(/ (math/expt -1 (inc %)) %) nats)))
+
 (comment
   (require '[vector.generating :as g] :reload)
   (take 10 g/zero)
@@ -84,6 +91,12 @@
 
   (take 10 g/e)
   ;;=> [1 1 1/2 1/6 1/24 1/120 1/720 1/5040 1/40320 1/362880]
+
+  (take 10 g/ln-1)
+  ;;=>(0 1 1/2 1/3 1/4 1/5 1/6 1/7 1/8 1/9)
+
+  (take 10 g/ln-2)
+  ;;=> (0 1 -1/2 1/3 -1/4 1/5 -1/6 1/7 -1/8 1/9)
 
   ;; binomial series (1 + z)^n
   (take 10 (g/binomial 4))
