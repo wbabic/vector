@@ -70,6 +70,7 @@
   (take 5 (t/binomial 5))
   (take 7 (t/binomial (/ -2)))
   (take 7 (t/binomial (/ 2)))
+  (take 7 (t/binomial (/ -9) (/ 2)))
 
   (take 10 (iterate t/f4 [0 1]))
   (take 20 t/fibs)

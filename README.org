@@ -91,7 +91,7 @@
    recurrence relation
    generating function
 
-** pascal's triangle and binomial cooficients
+** pascal's triangle and binomial coefficients
    pascal.clj
 
    Pascal's triangle
@@ -103,6 +103,8 @@
 
    Catalan numbers
 
+   http://en.wikipedia.org/wiki/Pascal%27s_triangle
+   http://en.wikipedia.org/wiki/Binomial_coefficient
    http://en.wikipedia.org/wiki/Binomial_theorem
    http://en.wikipedia.org/wiki/Binomial_series
    http://en.wikipedia.org/wiki/Generating_function
@@ -160,6 +162,15 @@
    drop first m-1 terms
 
    an algebra of formal power series
+
+** hypergeometric function
+
+   http://en.wikipedia.org/wiki/Hypergeometric_function
+   generalized
+   http://en.wikipedia.org/wiki/Generalized_hypergeometric_function
+
+   pochhammer symbol
+   http://en.wikipedia.org/wiki/Pochhammer_symbol
 
 ** references
 *** loom

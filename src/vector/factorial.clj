@@ -12,6 +12,14 @@
   (assert (>= k 0))
   (reduce *' (map #(- r %) (range k))))
 
+(defn rising-factorial
+  "r(r+1)(r+2)...(r+n-1)
+  r to the k rising"
+  [r n]
+  (assert (integer? k))
+  (assert (>= k 0))
+  (reduce *' (map #(+ r %) (range k))))
+
 (defn choose [n k]
   (/ (falling-factorial n k) (factorial k)))
 
