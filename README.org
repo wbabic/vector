@@ -134,6 +134,10 @@
    vector representation of a complex number
    add mult pow modulus argument mult-inverse
 ** series
+   series.clj
+   sequence of partial sums
+   reductions
+
 ** formal power series
    fps.clj
 
@@ -141,7 +145,10 @@
    take cauchy product of two series
 
 ** generating functions
-   simple sequnces and their generationg functions
+   generating.clj
+   transduce.clj
+
+   simple sequnces and their generatiing functions
    transducers
 
    Concrete Mathematics

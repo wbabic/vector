@@ -26,7 +26,6 @@
   ([] (repeat 1))
   ([c] (eduction (z->cz c) (geo))))
 
-
 ;; exponential
 (def f2 (fn [[s n]]
           (let [m (inc n)] [(* (/ m) s) m])))

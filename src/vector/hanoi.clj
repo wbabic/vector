@@ -18,7 +18,7 @@
 
 ;; tower of hanoi
 (defn moves
-  "Given a state, return valid movees from that state.
+  "Given a state, return valid moves from that state.
   For each topmost disk, see if we can move it to another peg.
   The other peg must either have a bigger disk on top or no disk"
   [state]
@@ -56,6 +56,10 @@
         end (end-state n)]
     (find-path moves start end)))
 
+(def fg (fly-graph :successors moves :start (initial-state 3)))
+
+(defn view-graph [g] (view g))
+
 (comment
   (require '[vector.hanoi :as h] :reload)
   (h/initial-state 3)
@@ -65,4 +69,5 @@
   (h/moves (h/initial-state 3))
   (h/solve 3)
 
+  (def fg (fly-graph :neihbors moves :start (h/initial-state 3)))
   )
