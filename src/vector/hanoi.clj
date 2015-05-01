@@ -17,6 +17,8 @@
   [ss ss (into ss (range 1 (inc n)))])
 
 ;; tower of hanoi
+;; each possible position is a node
+;; two nodes are connected if there is a valid move from one to the other
 (defn moves
   "Given a state, return valid moves from that state.
   For each topmost disk, see if we can move it to another peg.
@@ -34,7 +36,7 @@
 
 (defn find-path
   "Return a path from start to end with the fewest hops
-  neighbors is a function that returns adjacent nodes"
+  moves is a function that returns adjacent nodes"
   [moves start end]
   (loop [queue (conj clojure.lang.PersistentQueue/EMPTY start)
          preds {start nil}
@@ -69,5 +71,9 @@
   (h/moves (h/initial-state 3))
   (h/solve 3)
 
-  (def fg (fly-graph :neihbors moves :start (h/initial-state 3)))
+  (use '[loom.graph :only [graph fly-graph]])
+  (def fg (fly-graph :successors h/moves :start (h/initial-state 3)))
+  (h/view-graph fg)
+  (def fg (fly-graph :successors range :weight (constantly 77)))
+  ;; is not working!
   )
