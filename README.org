@@ -23,6 +23,18 @@
 *** notes
     pr and prn print in a way that can be read by the clojure reader
 
+** introduction to quadratics
+   http://www.shelovesmath.com/algebra/intermediate-algebra/quadratics/
+   quadratic.clj
+
+   types of quadratic constructors:
+   - paramaters a b c as a polynomial
+   - vertex (h,k) leading cooefficent a
+   - roots z1, z2, possibly complex
+
+   combine polynomial.clj and complex.clj
+   with quadratic.clj
+
 ** euclidean algorithm
    the art of computer programming
 
@@ -69,15 +81,59 @@
    polynomial.clj
 
    add and multiply polynomials
+*** references
+    https://www.fpcomplete.com/user/Sam567/computational-physics/beginner-s-tools/polynomials
+    https://courses.edx.org/courses/SchoolYourself/AlgebraX/1T2015/courseware/
 
-   https://www.fpcomplete.com/user/Sam567/computational-physics/beginner-s-tools/polynomials
-   https://courses.edx.org/courses/SchoolYourself/AlgebraX/1T2015/courseware/
+    http://en.wikipedia.org/wiki/Polynomial
+    https://github.com/levand/prolin
+    https://github.com/benzitohhh/hello-clojure/blob/master/src/hello_clojure/polynomial.clj
+    https://github.com/clojure-numerics/expresso/blob/master/src/main/clojure/numeric/expresso/impl/polynomial.clj
+    http://hoteljavaopensource.blogspot.com/2013/08/clojure-and-polynomials.html
 
-   http://en.wikipedia.org/wiki/Polynomial
-   https://github.com/levand/prolin
-   https://github.com/benzitohhh/hello-clojure/blob/master/src/hello_clojure/polynomial.clj
-   https://github.com/clojure-numerics/expresso/blob/master/src/main/clojure/numeric/expresso/impl/polynomial.clj
-   http://hoteljavaopensource.blogspot.com/2013/08/clojure-and-polynomials.html
+    http://en.wikipedia.org/wiki/Root-finding_algorithm
+
+*** Fibonacci polynomials
+    Fibonacci and Lucas polynomials
+    a generalization of Fibonacci and Lucas numbers
+    http://en.wikipedia.org/wiki/Fibonacci_polynomials
+
+    Fibonacci Polynomials
+    Fn(x) =  0 if n = 0
+             1 if n = 1
+             x*F(n-1)(x) + F(n-2)(x) if n >= 2
+
+    Lucas Polynomials
+    Ln(x) =  0 if n = 2
+             1 if n = x
+             x*L(n-1)(x) + L(n-2)(x) if n >= 2
+
+    Generating Functions
+    Sum n=1 to infinity Fn(x)tn =t/(1 - xt - t^2)
+    Sum n=1 to infinity Ln(x)tn =(2 - xt)/(1 - xt - t^2)
+
+    Lucas Sequences
+    http://en.wikipedia.org/wiki/Lucas_sequence
+    http://mathworld.wolfram.com/LucasSequence.html
+    Fn = Un(x,-1)
+    Ln = Vn(x,-1)
+
+    Identities
+
+    Closed Form Expression
+
+    Combinatorial Interpretaion
+    2x1 dominoes
+
+    http://oeis.org/A162515
+    http://oeis.org/A011973
+
+*** De Moivre's formula
+    http://en.wikipedia.org/wiki/De_Moivre%27s_formula
+
+    http://demonstrations.wolfram.com/DeMoivresTheoremForTrigIdentities/
+    http://en.wikipedia.org/wiki/Wolfram_Demonstrations_Project
+
 ** enumerative combinatorics
    http://en.wikipedia.org/wiki/Enumerative_combinatorics
 
