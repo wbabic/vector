@@ -3,7 +3,9 @@
   (:use [clojure.core.logic])
   (:require
    [clojure.core.logic.fd :as fd]
-   [clojure.core.logic.pldb :as pldb]))
+   [clojure.core.logic.pldb :as pldb]
+   [clojure.core.match :refer [match]]
+   [clojure.math.numeric-tower :as math]))
 
 ;; core.logic experimentation
 
@@ -175,7 +177,15 @@
   (+ degs (* mins (/ 60)) (* secs (/ 60) (/ 60))))
 
 (defn decimal->degrees [degrees]
-  (let []))
+  (let [d (int (quot degrees 1))
+        r (rem degrees 1)
+        mplus (* 60 r)
+        m (int (quot mplus 1))
+        mr (rem mplus 1)
+        splus (* 60 mr)
+        s (math/round splus)]
+    [d m s]
+    ))
 
 (comment
   (pldb/with-db time-units
@@ -217,4 +227,98 @@
   (defn relates
     [a b]
     )
+  )
+
+(defn add-base-60
+  [s1 s2]
+  (let [s (+ s1 s2)]
+    [(quot s 60) (rem s 60)]))
+
+;; lets add two angle measurement
+(defn add [a1 a2]
+  (let [[d1 m1 s1] a1
+        l1 [[:degree d1] [:minute m1] [:second s1]]
+        [d2 m2 s2] a2]
+    (loop [d d2 m m2 s s2 l l1]
+      (if-let [item (first l)]
+        (match item
+               [:degree d1] (recur (+ d d1) m s (rest l))
+               [:minute m1] (let [[q r] (add-base-60 m m1)]
+                              (recur (+ d q) r s (rest l)))
+               [:second s1] (let [[q r] (add-base-60 s s1)
+                                  [q2 r2] (add-base-60 q m)]
+                              (recur (+ q2 d) r2 r (rest l))))
+        [d m s]))))
+
+(defn add-iter [a1 a2]
+  (let [[d1 m1 s1] a1
+        l1 [[:degree d1] [:minute m1] [:second s1]]
+        [d2 m2 s2] a2]
+    (loop [d d2 m m2 s s2 l l1]
+      (if-let [item (first l)]
+        (match item
+               [:degree d1] (recur (+ d d1) m s (rest l))
+               [:minute m1] (let [[q r] (add-base-60 m m1)]
+                              (recur (+ d q) r s (rest l)))
+               [:second s1] (let [[q r] (add-base-60 s s1)
+                                  [q2 r2] (add-base-60 q m)]
+                              (recur (+ q2 d) r2 r (rest l))))
+        [d m s]))))
+
+(defn add-reduce [a1 a2]
+  (let [[d1 m1 s1] a1
+        l1 [[:degree d1] [:minute m1] [:second s1]]
+        [d2 m2 s2] a2]
+    (loop [d d2 m m2 s s2 l l1]
+      (if-let [item (first l)]
+        (match item
+               [:degree d1] (recur (+ d d1) m s (rest l))
+               [:minute m1] (let [[q r] (add-base-60 m m1)]
+                              (recur (+ d q) r s (rest l)))
+               [:second s1] (let [[q r] (add-base-60 s s1)
+                                  [q2 r2] (add-base-60 q m)]
+                              (recur (+ q2 d) r2 r (rest l))))
+        [d m s]))))
+
+(comment
+  (let [m1 [30 3 27]
+        m2 [61 24 2]]
+    (add m1 m2))
+  ;;=> [91 27 29]
+
+  (let [m1 [30 35 27] m2 [61 24 35]] (add m1 m2))
+  ;;=> [92 0 2]
+  (let [m1 [359 59 59] m2 [0 0 1]] (add m1 m2))
+  ;;=> [360 0 0]
+  )
+
+;; finite domain
+(comment
+  (run* [q] (fd/in q (fd/interval 1 9)))
+  ;;=> (1 2 3 4 5 6 7 8 9)
+
+  (run* [q]
+    (fresh [x y]
+      (fd/in x y (fd/interval 1 10))
+      (fd/+ x y 10)
+      (== q [x y])))
+  ;;=> ([1 9] [2 8] [3 7] [4 6] [5 5] [6 4] [7 3] [8 2] [9 1])
+
+  (run* [q]
+    (fresh [x y]
+      (fd/in x y (fd/interval 0 9))
+      (fd/eq
+       (= (+ x y) 9)
+       (= (+ (* x 2) (* y 4)) 24))
+      (== q [x y])))
+  ;;=> ([6 3])
+
+  (run* [q]
+    (fresh [x y]
+      (fd/in x y (fd/interval 1 10))
+      (fd/+ x y 10)
+      (fd/distinct [x y])
+      (== q [x y])))
+  ;;=> ([1 9] [2 8] [3 7] [4 6] [6 4] [7 3] [8 2] [9 1])
+
   )
