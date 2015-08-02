@@ -167,7 +167,7 @@
    [equals :year 12 :month]
    [equals :month 30 :day]
    [equals :day 24 :hour]
-   [equals :hout 60 :minute]
+   [equals :hour 60 :minute]
    [equals :minute 60 :second]))
 
 (def angle-units
@@ -186,8 +186,7 @@
         mr (rem mplus 1)
         splus (* 60 mr)
         s (math/round splus)]
-    [d m s]
-    ))
+    [d m s]))
 
 (def time-map
   {:year   1
@@ -242,18 +241,16 @@
   (reduce-unit [:day 35])
   (convert [:day 1] :year)
   (reduce-unit (convert [:day 361] :month))
-
   )
 
 (comment
   (pldb/with-db time-units
     (run* [q]
       (fresh [x y r1 r2]
-        (conde
-         [(equals x r1 :day)]
-         [(equals :day r2 y)])
-        (== q [[:day 1] [y r2] ]))))
-  ;;=> ([[:day 1] [_0 _1]] [[:day 1] [:hour 24]])
+        (equals x r1 :day)
+        (equals :day r2 y)
+        (== q [[:day 1] [y r2] [x [:recip r1]]]))))
+  ;;=> ([[:day 1] [:hour 24] [:month [:recip 30]]])
 
   (pldb/with-db angle-units
     (run* [q]
@@ -277,7 +274,6 @@
   ;; 40.34722
   (degrees->decimal [40 20 50])
   ;;=> 40.34722222222222
-
   )
 
 (defn add-base-60
