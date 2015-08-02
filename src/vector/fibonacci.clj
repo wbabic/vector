@@ -35,6 +35,7 @@
 (defn minus [a b]
   (add a (negate b)))
 
+;; (= 5 (* rt5 rt5))
 (defn mult [[a1 b1] [a2 b2]]
   [(+ (* a1 a2) (* 5 b1 b2))
    (+ (* a1 b2) (* a2 b1))])

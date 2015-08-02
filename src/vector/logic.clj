@@ -8,7 +8,6 @@
    [clojure.math.numeric-tower :as math]))
 
 ;; core.logic experimentation
-
 (comment
   (use 'clojure.core.logic)
 
@@ -26,8 +25,8 @@
     (!= q :q))
   ;;=> (:x)
 
-  )
 
+  )
 
 (def units [:year :month :day :hour :minute :second])
 
@@ -35,7 +34,6 @@
   (require '[vector.logic] :reload)
   (in-ns 'vector.logic)
   (use 'clojure.repl)
-
   )
 
 (defn beatso [player1 player2]
@@ -59,10 +57,7 @@
       (beatso x y)
       (== q [x y])))
   ;;=>  ([:rock :scissors] [:scissors :paper] [:paper :rock])
-
-
   )
-
 
 ;; facts and relations
 (pldb/db-rel man p)
@@ -110,39 +105,58 @@
  )
 
 
-(pldb/db-rel rpsls gesture p)
+(pldb/db-rel rpslt gesture p)
 
 (pldb/db-rel beats gesture1 gesture2)
 
 (def facts2
   (pldb/db
-   [rpsls :rock]
-   [rpsls :paper]
-   [rpsls :scissors]
-   [rpsls :lizard]
-   [rpsls :turtle]
-   [rpsls :birdie]
+   [rpslt :rock]
+   [rpslt :paper]
+   [rpslt :scissors]
+   [rpslt :lizard]
+   [rpslt :turtle]
 
-   [beats :scissors :lizard]
-   [beats :paper :turtle]
-   [beats :rock :birdie]
-   [beats :lizard :paper]
-   [beats :lizard :rock]
-   [beats :turtle :rock]
+   [beats :scissors :paper]
+   [beats :paper :rock]
+   [beats :rock :lizard]
+   [beats :lizard :turtle]
    [beats :turtle :scissors]
-   [beats :birdie :paper]
-   [beats :birdie :scissors]))
+   [beats :scissors :lizard]
+   [beats :lizard :paper]
+   [beats :paper :turtle]
+   [beats :turtle :rock]
+   [beats :rock :scissors]
+   ))
 
 (comment
   (pldb/with-db facts2
     (run* [q]
-      (rpsls q)))
-  ;;=> (:scissors :paper :lizard :turtle :rock :birdie)
+      (rpslt q)))
+  ;;=> (:scissors :paper :lizard :turtle :rock)
+
   (pldb/with-db facts2
     (run* [q]
-      (rpsls q)
-      (beats :birdie q)))
-  ;;=> (:scissors :paper)
+      (rpslt q)
+      (beats :turtle q)))
+  ;;=> (:scissors :rock)
+
+  (pldb/with-db facts2
+    (run* [q]
+      (rpslt q)
+      (beats :lizard q)))
+  ;;=> (:paper :turtle)
+
+  (pldb/with-db facts2
+   (run* [q]
+     (fresh [x y]
+       (beats :turtle x)
+       (beats x y)
+       (beats y :turtle)
+       (== q [:turtle x y :turtle]))))
+  '([:turtle :rock :lizard :turtle]
+    [:turtle :scissors :paper :turtle]
+    [:turtle :scissors :lizard :turtle])
   )
 
 ;; lets look at time units
@@ -150,28 +164,16 @@
 
 (def time-units
   (pldb/db
-   [equals :hour   (/ 24) :day]
-   [equals :minute (/ 60) :hour]
-   [equals :second (/ 60) :minute]
-
-   [equals :day   (/ 30) :month]
-   [equals :month (/ 12) :year]
-   ))
+   [equals :year 12 :month]
+   [equals :month 30 :day]
+   [equals :day 24 :hour]
+   [equals :hout 60 :minute]
+   [equals :minute 60 :second]))
 
 (def angle-units
   (pldb/db
-   [equals :minute [:degree (/ 60)]]
-   [equals :degree [:minute 60]]
-   [equals :minute [:second 60]]
-   [equals :second [:minute (/ 60)]]
-   ))
-
-(defn from-unit [unit]
-  (pldb/with-db angle-units
-    (run* [q]
-      (fresh [x r]
-        (equals unit x)
-        (== q [[unit 1] x])))))
+   [equals :degree 60 :minute]
+   [equals :minute 60 :second]))
 
 (defn degrees->decimal [[degs mins secs]]
   (+ degs (* mins (/ 60)) (* secs (/ 60) (/ 60))))
@@ -187,21 +189,81 @@
     [d m s]
     ))
 
+(def time-map
+  {:year   1
+   :month  12
+   :day    (* 30 12)
+   :hour   (* 24 30 12)
+   :minute (* 60 24 30 12)
+   :second (* 60 60 24 30 12)})
+
+(defn set-time-map [unit]
+  (let [r (unit time-map)]
+    (into {} (map (fn [[a b]] [a (/ b r)]) time-map))))
+
+(defn value-of-unit
+  [unit]
+  (match unit
+         :month 12
+         :day 30
+         :hour 24
+         :minute 60
+         :second 60
+         :year nil))
+
+(def next-unit
+  {:second :minute
+   :minute :hour
+   :hour :day
+   :day :month
+   :month :year})
+
+(defn reduce-unit
+  "reduce unit if value over, returning a sequence
+  or just argument if not"
+  [[unit amount]]
+  (if-let [unit-value (value-of-unit unit)]
+    (let [q (quot amount unit-value)
+          r (rem amount unit-value)]
+      (if (> q 0)
+        (list [q (next-unit unit)] [unit r])
+        [unit amount]))
+    [unit amount]))
+
+(defn convert
+  [from to-unit]
+  (let [[in-unit amount] from
+        m (set-time-map in-unit)]
+    [to-unit (* amount (to-unit m))]))
+
+(comment
+  (reduce-unit [:year 5000])
+  (reduce-unit [:month 14])
+  (reduce-unit [:day 35])
+  (convert [:day 1] :year)
+  (reduce-unit (convert [:day 361] :month))
+
+  )
+
 (comment
   (pldb/with-db time-units
     (run* [q]
-      (equals :hour q :day)))
-  ;;=> (1/24)
+      (fresh [x y r1 r2]
+        (conde
+         [(equals x r1 :day)]
+         [(equals :day r2 y)])
+        (== q [[:day 1] [y r2] ]))))
+  ;;=> ([[:day 1] [_0 _1]] [[:day 1] [:hour 24]])
 
   (pldb/with-db angle-units
     (run* [q]
       (fresh [x r]
-        (equals :degree x)
-        (== q [[:degree 1] x]))))
+        (equals :degree r x)
+        (== q [[:degree 1] [x r]]))))
   ;;=> ([[:degree 1] [:minute 60]])
 
   ;; [degrees minutes seconds]
-  ;; [40 20 50] = [:degrees 40.34722], approximately
+  ;; [40 20 50] is approximately 40.34722
   ;; 40 degrees 20 minutes 50 seconds
   ;; need symbols for degrees minutes seconds
 
@@ -216,17 +278,6 @@
   (degrees->decimal [40 20 50])
   ;;=> 40.34722222222222
 
-  )
-
-(comment
-  ;; how does a relate to be
-  (relate :hour :day)
-  ;;=> ([:equals [:hour 1] [:day (/ 24)]] [:equals [:day 1] [:hour 24]])
-  ;; 1 day = 24 hours
-  ;; 1 hour = (/ 24) day
-  (defn relates
-    [a b]
-    )
   )
 
 (defn add-base-60
@@ -250,37 +301,8 @@
                               (recur (+ q2 d) r2 r (rest l))))
         [d m s]))))
 
-(defn add-iter [a1 a2]
-  (let [[d1 m1 s1] a1
-        l1 [[:degree d1] [:minute m1] [:second s1]]
-        [d2 m2 s2] a2]
-    (loop [d d2 m m2 s s2 l l1]
-      (if-let [item (first l)]
-        (match item
-               [:degree d1] (recur (+ d d1) m s (rest l))
-               [:minute m1] (let [[q r] (add-base-60 m m1)]
-                              (recur (+ d q) r s (rest l)))
-               [:second s1] (let [[q r] (add-base-60 s s1)
-                                  [q2 r2] (add-base-60 q m)]
-                              (recur (+ q2 d) r2 r (rest l))))
-        [d m s]))))
-
-(defn add-reduce [a1 a2]
-  (let [[d1 m1 s1] a1
-        l1 [[:degree d1] [:minute m1] [:second s1]]
-        [d2 m2 s2] a2]
-    (loop [d d2 m m2 s s2 l l1]
-      (if-let [item (first l)]
-        (match item
-               [:degree d1] (recur (+ d d1) m s (rest l))
-               [:minute m1] (let [[q r] (add-base-60 m m1)]
-                              (recur (+ d q) r s (rest l)))
-               [:second s1] (let [[q r] (add-base-60 s s1)
-                                  [q2 r2] (add-base-60 q m)]
-                              (recur (+ q2 d) r2 r (rest l))))
-        [d m s]))))
-
 (comment
+  ;; adding degrees
   (let [m1 [30 3 27]
         m2 [61 24 2]]
     (add m1 m2))
