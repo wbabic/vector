@@ -24,11 +24,7 @@
      [(== q :x)])
     (!= q :q))
   ;;=> (:x)
-
-
   )
-
-(def units [:year :month :day :hour :minute :second])
 
 (comment
   (require '[vector.logic] :reload)
@@ -161,6 +157,8 @@
 
 ;; lets look at time units
 (pldb/db-rel equals unit-1 ratio unit-2)
+
+(def units [:year :month :day :hour :minute :second])
 
 (def time-units
   (pldb/db

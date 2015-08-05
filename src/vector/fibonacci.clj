@@ -91,6 +91,11 @@
   (f/mult f/alpha f/beta)
   ;;=> [-1N 0N]
 
+  (= (f/invert f/alpha)
+     (f/minus f/alpha f/one)
+     (f/negate f/beta))
+  ;;=> true
+
   ;; beta = -1/alpha
   (= (f/negate (f/invert f/alpha)) f/beta)
 
