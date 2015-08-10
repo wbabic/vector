@@ -23,33 +23,39 @@
 (defn as-decimal [[a b]]
   (+ a (* b (Math/sqrt 5))))
 
+(defn evaluate [n]
+  (as-decimal n))
+
 ;; add, multiply
 ;; take nth powers
 ;; evaluate in a polynomial
 (defn add [[a1 b1] [a2 b2]]
   [(+ a1 a2) (+ b1 b2)])
 
-(defn negate [[a1 a2]]
+(defn negative [[a1 a2]]
   [(- a1) (- a2)])
 
 (defn minus [a b]
-  (add a (negate b)))
+  (add a (negative b)))
 
 ;; (= 5 (* rt5 rt5))
 (defn mult [[a1 b1] [a2 b2]]
   [(+ (* a1 a2) (* 5 b1 b2))
    (+ (* a1 b2) (* a2 b1))])
 
-(defn invert
+(defn reciprocal
   "return 1/a"
   [[a1 b1]]
   (let [f (- (* a1 a1) (* 5 b1 b1))]
     [(/ a1 f) (/ (- b1) f)]))
 
+(defn conjugate [[a b]]
+  [a (- b)])
+
 (defn divide
   "a/b"
   [a b]
-  (mult a (invert b)))
+  (mult a (reciprocal b)))
 
 (defn pow
   "raise to the nth power"
@@ -60,7 +66,8 @@
           :else (recur (mult b a) (dec n)))))
 
 (def alpha [(/ 2) (/ 2)])
-
+(def Phi alpha)
+(def phi (reciprocal Phi))
 (def beta [(/ 2) (/ -2)])
 
 (defn fib
@@ -68,49 +75,56 @@
   [n]
   (let [an (pow alpha n)
         bn (pow beta n)
-        f (invert rt5)]
+        f (reciprocal rt5)]
     (mult f (minus an bn))))
+
+(def eq-1
+  (fn [x] (- (* x x) x 1)))
+
+(def eq-2
+  (fn [x] (+ (* x x) x -1)))
 
 (comment
   (require '[vector.fibonacci :as f] :reload)
+  (in-ns 'vector.fibonacci)
 
-  (take 15 (f/fibs))
-  (take 15 (map square (f/fibs)))
+  (take 15 (fibs))
+  (take 15 (map square (fibs)))
   ;;=> (0 1 1 4 9 25 64 169 441 1156 3025 7921 20736 54289 142129)
-  (map f/sum-fibs-squared (range 1 11))
+  (map sum-fibs-squared (range 1 11))
   ;;=> (0 1 2 6 15 40 104 273 714 1870)
 
   ;; now look at the product of two adjacent fibs
-  (take 10 (partition 2 1 (f/fibs)))
-  (->> (take 10 (partition 2 1(f/fibs)))
+  (take 10 (partition 2 1 (fibs)))
+  (->> (take 10 (partition 2 1(fibs)))
        (map vec)
        (map (fn [[f1 f2]] (* f1 f2))))
   ;;=> (0 1 2 6 15 40 104 273 714 1870)
-  (f/add f/alpha f/beta)
+  (add alpha beta)
   ;;=> [1N 0N]
-  (f/mult f/alpha f/beta)
+  (mult alpha beta)
   ;;=> [-1N 0N]
 
-  (= (f/invert f/alpha)
-     (f/minus f/alpha f/one)
-     (f/negate f/beta))
+  (= one (mult Phi phi) (minus Phi phi))
+  (= phi
+     (minus Phi one)
+     (reciprocal Phi))
+  (= (negative phi) beta)
+  (= beta (conjugate alpha))
+  (= (reciprocal alpha)
+     (minus alpha one)
+     (negative beta))
   ;;=> true
 
-  ;; beta = -1/alpha
-  (= (f/negate (f/invert f/alpha)) f/beta)
-
-  ;; beta = 1 - alpha
-  (= f/beta (f/minus f/one f/alpha))
-
-  ;; solutions to
-  ;; x^2 = x + 1
-  (let [f (fn [x] (= (f/mult x x) (f/add x f/one)))]
-    [(f f/alpha) (f f/beta)])
-  ;; beta - alpha = rt5
-  (= f/rt5 (f/minus f/alpha f/beta))
+  ;; solutions to quadratic equations
+  (eq-1 (evaluate Phi))
+  (eq-1 (evaluate beta))
+  (eq-2 (evaluate phi))
+  (eq-2 (evaluate (negative Phi)))
+  ;;=> 0.0
 
   ;; pow
-  (= (f/pow f/alpha 2) (f/mult f/alpha f/alpha))
-  (= (f/pow f/alpha 3) (f/mult f/alpha (f/mult f/alpha f/alpha)))
+  (= (pow alpha 2) (mult alpha alpha))
+  (= (pow alpha 3) (mult alpha (mult alpha alpha)))
 
   )
