@@ -10,4 +10,5 @@
   (add [_ n] "addition of number")
   (mult [_ n]"multiplication of number")
   (negative [_] "the negativve of a number")
-  (reciprocal [_] "the reciprocal of a nimber"))
+  (reciprocal [_] "the reciprocal of a nimber")
+  (conjugate [-] "the conjugate of a number"))

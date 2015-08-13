@@ -68,7 +68,7 @@
 (def alpha [(/ 2) (/ 2)])
 (def Phi alpha)
 (def phi (reciprocal Phi))
-(def beta [(/ 2) (/ -2)])
+(def beta (conjugate alpha))
 
 (defn fib
   "the nth fibonacci"
