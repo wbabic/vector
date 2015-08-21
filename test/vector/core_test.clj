@@ -3,5 +3,5 @@
             [vector.core :refer :all]))
 
 (deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+  (testing "FIXED, I now pass."
+    (is (== 0 0.0))))

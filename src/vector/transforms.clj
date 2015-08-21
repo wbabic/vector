@@ -1,4 +1,5 @@
 (ns vector.transforms
+  "two dimensional vector and matrix vector multiplication"
   (:require [clojure.core.matrix :as m]
             [clojure.core.matrix.operators :as o]))
 

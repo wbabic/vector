@@ -11,4 +11,6 @@
   (mult [_ n]"multiplication of number")
   (negative [_] "the negativve of a number")
   (reciprocal [_] "the reciprocal of a nimber")
-  (conjugate [-] "the conjugate of a number"))
+  (conjugate [-] "the conjugate of a number")
+  (evaluate [_] "evaluate to a double")
+  (equals [_ other] "determines if this number equals the other"))

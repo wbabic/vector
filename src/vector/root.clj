@@ -1,13 +1,14 @@
 (ns vector.root
-  (:require [vector.protocol :as p]))
+  "square root of positive integers"
+  (:require [vector.protocol :as p]
+            [clojure.core.match :refer [match]]))
 
 (comment
   (require '[vector.root] :reload)
   (in-ns 'vector.root)
   )
 
-(defrecord root [base mult]
-  p/MyNumber
-  (add [_ w]
-    (let [[b m] w]
-      (root. ))))
+(def keywords [:number :root])
+(def zero 0)
+
+(def rt5 [:root 5])

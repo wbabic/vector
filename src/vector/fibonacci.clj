@@ -1,4 +1,5 @@
-(ns vector.fibonacci)
+(ns vector.fibonacci
+  (:require [vector.transduce :as t]))
 
 (defn fibs
   "return the sequence of Fibonacci numbers"
@@ -127,4 +128,29 @@
   (= (pow alpha 2) (mult alpha alpha))
   (= (pow alpha 3) (mult alpha (mult alpha alpha)))
 
+  (map (fn [[f1 f2]] (/ f1 f2)) (map vec (take 100 (partition 2 1 (fibs)))))
+
+  (map (fn [[f1 f2]] (double (/ f1 f2))) (map vec (take 20 (partition 2 1 (fibs)))))
+
+  (let [t (evaluate phi)
+        f (fn [[f1 f2]] (double (/ f1 f2)))
+        g (fn [x] (Math/abs (- t x)))]
+    (->> (fibs)
+         (partition 2 1)
+         (take 35)
+         (map vec)
+         (map f)
+         (map g)))
+
+  (let [t (evaluate phi)
+        f (fn [[f1 f2]] (double (/ f1 f2)))
+        g (fn [x] (Math/abs (- t x)))
+        epsilon 1e-15]
+    (first
+     (->> (fibs)
+          (partition 2 1)
+          (map vec)
+          (map f)
+          (map g)
+          (drop-while #(> % epsilon)))))
   )
