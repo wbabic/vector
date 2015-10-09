@@ -5,12 +5,8 @@
   (loop [m m n n]
     (let [r (rem m n)]
       (if (zero? r)
-        (do
-          (println :done)
-          n)
-        (do
-          (println "remainder: "r)
-          (recur n r))))))
+        n
+        (recur n r)))))
 
 (comment
   (require '[vector.euclid :as euc] :reload)

@@ -10,5 +10,6 @@
                  [net.mikera/core.matrix "0.33.2" :exclusions [org.clojure/clojure]]
                  [org.clojure/math.numeric-tower "0.0.4"]
                  [org.clojure/math.combinatorics "0.1.1"]
+                 [com.gfredericks/exact "0.1.8"]
                  [aysylu/loom "0.5.0"]
                  [org.clojure/core.logic "0.8.10"]])

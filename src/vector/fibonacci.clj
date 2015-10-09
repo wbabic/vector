@@ -86,7 +86,7 @@
   (fn [x] (+ (* x x) x -1)))
 
 (comment
-  (require '[vector.fibonacci :as f] :reload)
+  (require '[vector.fibonacci] :reload)
   (in-ns 'vector.fibonacci)
 
   (take 15 (fibs))

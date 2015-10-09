@@ -51,33 +51,37 @@
 (def fibs (eduction (map first) (iterate f4 [0 1])))
 
 (comment
-  (require '[vector.transduce :as t] :reload)
-  (take 10 (iterate t/f1 [1 2]))
+  (require '[vector.transduce] :reload)
+  (in-ns 'vector.transduce)
+  (take 10 (iterate f1 [1 2]))
 
-  (take 20 (t/geo-iter (/ 2)))
-  (take 20 (t/geo-iter 2))
+  (take 20 (geo-iter (/ 2)))
+  (take 20 (geo-iter 2))
 
-  (take 10 (t/geo))
-  (take 10 (t/geo (/ 2)))
+  (take 10 (geo))
+  (take 10 (geo (/ 2)))
 
-  (take 10 (iterate t/f2 [1 0]))
-  (take 10 t/e)
+  (take 10 (iterate f2 [1 0]))
+  (take 10 e)
   ;; e^2z
-  (take 10 (eduction (t/z->cz 2) t/e))
+  (take 10 (eduction (z->cz 2) e))
 
-  (take 10 (iterate (t/f3 4) [1 1]))
-  (take 5 (t/binomial 5))
-  (take 7 (t/binomial (/ -2)))
-  (take 7 (t/binomial (/ 2)))
-  (take 7 (t/binomial (/ -9) (/ 2)))
+  (take 10 (iterate (f3 4) [1 1]))
+  (take 6 (binomial 5))
+  (take 7 (binomial (/ -2)))
+  (take 7 (binomial (/ 2)))
+  (take 7 (binomial (/ -9) (/ 2)))
 
-  (take 10 (iterate t/f4 [0 1]))
-  (take 20 t/fibs)
+  (take 10 (iterate f4 [0 1]))
+  (take 20 fibs)
 
   ;; sequence of partial sums
-  (take 10 (reductions + (t/geo (/ 2))))
+  (take 10 (reductions + (geo (/ 2))))
   ;; (1 3/2 7/4 15/8 31/16 63/32 127/64 255/128 511/256 1023/512)
 
-  (take 10 (t/geo 1))
-  (take 10 (sequence (t/z->cz (/ 2)) (t/geo 1)))
+  (take 10 (geo))
+  (take 10 (geo 1))
+
+  (take 10 (geo (/ 2)))
+  (take 10 (sequence (z->cz (/ 2)) (geo 1)))
   )
