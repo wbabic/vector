@@ -239,31 +239,13 @@
   (require '[vector.root] :reload)
   (in-ns 'vector.root)
 
-  (num/equals? (num/conjugate Phi) (num/negative phi))
-  ;;=> true
-
-  (def w (rat-roots 0 rt5 omega))
-  (def v (rat-roots 0 omega rt5))
-  (num/add w (num/negative w))
-  ;;=> #vector.root.RationalRoot{:ratio 0, :roots nil}
-  (num/zero? (num/add w (num/negative w)))\
-  ;;=> true
-
-  (num/equals? Phi (num/reciprocal phi))
-  ;;=> true
-
+  ;; property: a number plus it's negative is zero
   (def w (rat-roots 1 rt5 omega))
   (def v (rat-roots 1 omega rt5))
-  (num/add w (num/negative w))
-  ;;=> #vector.root.RationalRoot{:ratio 0, :roots nil}
-
-  (num/one? (num/multiply Phi phi))
+  (num/zero? (num/add w (num/negative w)))
   ;;=> true
 
-  (num/evaluate (num/multiply Phi phi))
-  ;;=> 1N
-
-  ;; add two pure roots
+  ;; adding two roots does not yet have a reciprocal
   (num/add rt5 omega)
   ;;=>
   #vector.root.RationalRoot{:ratio 0,

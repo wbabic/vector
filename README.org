@@ -5,6 +5,7 @@
 ** Usage
    lein repl
 
+   lein test
 ** write graph data to file in edn format
 *** references
     Clojure edn walkthrough
