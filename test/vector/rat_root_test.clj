@@ -30,6 +30,9 @@
   (testing "product of Phi and phi is one"
     (is (num/one? (num/multiply Phi phi)))))
 
+;; todo - fix the following:
+;; (num/equals? rt5 (num/add Phi phi))
+
 ;; next, general tests using generators and properties
 
 ;; generators
@@ -61,3 +64,24 @@
                       (num/one? recip)))))
 
 (defspec reciprocal-root reciprocal-root-prop)
+
+;; rational root generator
+(def gen-rat-root
+  (gen/fmap (partial apply collect-ratios-roots)
+            (gen/tuple gen/ratio gen-nonzero-root)))
+
+(def gen-nonzero-rat-root
+  (gen/such-that #(not (num/zero? %)) gen-rat-root))
+
+(def additive-inverse-rat-root-prop
+  (prop/for-all [r gen-rat-root]
+                (num/zero? (num/add r (num/negative r)))))
+
+(defspec additive-inverse-rat-root additive-inverse-rat-root-prop)
+
+(def reciprocal-rat-root-prop
+  (prop/for-all [r gen-nonzero-rat-root]
+                (let [recip (num/reciprocal r)]
+                  (num/one? (num/multiply r recip)))))
+
+(defspec reciprocal-rat-root reciprocal-rat-root-prop)

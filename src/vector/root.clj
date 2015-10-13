@@ -44,7 +44,10 @@
   (multiply [x y]
     (mult-by-root x y))
   (one? [_] (and (== 1 base) (== 1 multiplier)))
-  (reciprocal [_] (root base (/ (* multiplier base)))))
+  (reciprocal [_] (let [denom (* multiplier base)]
+                    (if (zero? denom)
+                      :infinity
+                      (root base (/ denom))))))
 
 ;; root constructor
 (defn root
@@ -58,7 +61,7 @@
 
 (defn collect-roots
   "collect like bases of given sequence of roots
-  filtering out non-zero multipliers"
+  ignoring zero multipliers"
   ([] nil)
   ([& roots]
    (let [reduced (reduce
@@ -85,16 +88,18 @@
          reduced (reduce
                   (fn [result ratio-or-root]
                     (cond
-                      (ratio? ratio-or-root)
-                      (update-in result [:ratio] #(+ ratio-or-root %))
+                      (or (integer? ratio-or-root) (ratio? ratio-or-root))
+                      (update-in result [:ratio] #(+ % ratio-or-root))
 
                       (instance? Root ratio-or-root)
                       (let [base (:base ratio-or-root)
                             multiplier (:multiplier ratio-or-root)]
-                        (update-in result [:roots base]
-                                   (fnil (fn [m]
-                                           (+ m multiplier))
-                                         0)))))
+                        (if (== 1 base)
+                          (update-in result [:ratio] (fnil (fn [n] (+ multiplier n)) 0))
+                          (update-in result [:roots base]
+                                                   (fnil (fn [m]
+                                                           (+ m multiplier))
+                                                         0))))))
                   initial
                   ratios-and-roots)]
      (apply rat-roots
@@ -153,7 +158,7 @@
 
   (num/zero? [_]
     (and (zero? ratio)
-         (nil? roots)))
+         (every? num/zero? roots)))
 
   num/Conjugate
   (num/conjugate [_]
@@ -177,21 +182,27 @@
 
   (num/one? [_]
     (and (== 1 ratio)
-         (nil? roots)))
+         (every? num/zero? roots)))
 
   (num/reciprocal [_]
     (let [root-count (count roots)]
-      (condp =
+      (condp = root-count
           0 (rat-roots (/ ratio))
           1 (let [first-root (first roots)
                   b (:base first-root)
-                  m (:multiplier first-root)
-                  k (/ (- (* ratio ratio) (* m m b)))]
-              (rat-roots (/ ratio k) (root b (/ (- m) k))))))))
+                  m (:multiplier first-root)]
+              (if (== 0 ratio)
+                (num/reciprocal first-root)
+                (if (== m 0)
+                  (/ ratio)
+                  (let [k (/ (- (* ratio ratio) (* m m b)))]
+                    (rat-roots (* ratio k) (root b (* (- m) k)))))))))))
 
 (defn rat-roots
   [num & roots]
   (->RationalRoot num roots))
+
+(def rrt5 (rat-roots 0 rt5))
 
 (defn reduce-root [base multiplier]
   (let [lsf (largest-square-factor base)]
