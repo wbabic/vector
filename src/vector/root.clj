@@ -246,6 +246,10 @@
      (mult-by-root rt (:ratio x))
      (map #(mult-by-root rt %) (:roots x)))))
 
+(defn root? [x]
+  (or (instance? Root x)
+      (instance? RationalRoot x)))
+
 (comment
   (require '[vector.root] :reload)
   (in-ns 'vector.root)
