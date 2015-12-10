@@ -180,6 +180,7 @@
    add, multiply, take nth powers of
    (1 +- root(5))/2
    explore fibonacci properties
+
 ** factorial
    factorial.clj
    factorial lazy sequence
@@ -190,6 +191,13 @@
    complex.clj
    vector representation of a complex number
    add mult pow modulus argument mult-inverse
+** number
+   protocols
+   Addition Multiplication Equality Evaluate Conjugate
+
+   root
+   complex
+
 ** series
    series.clj
    sequence of partial sums

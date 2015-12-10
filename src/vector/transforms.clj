@@ -6,7 +6,9 @@
 (defn dot [v w]
   (reduce + (map * v w)))
 
-(defn scale [alpha v]
+(defn scale
+  "multiply vector v by scalar alpha"
+  [alpha v]
   (mapv #(* % alpha) v))
 
 (defn add [v w]
@@ -89,6 +91,6 @@
   (m/transpose matrix))
 
 (defn scalem
-  "scale a matrix"
+  "scale matrix by scalar alpha"
   [alpha matrix]
   (o/* alpha matrix))

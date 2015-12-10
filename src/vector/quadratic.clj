@@ -19,6 +19,7 @@
             s2 (/ (+ bneg sqrt-d) a2)]
         [s1 s2])
       "negative discriminant")))
+
 (comment
   (require '[vector.quadratic :as q] :reload)
   )
