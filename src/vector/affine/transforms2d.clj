@@ -59,11 +59,7 @@
 
 (defn translation
   "return 3 by 3 translation matrix for given vector [vx vy]"
-  ([[vx vy]]
-   (->Matrix
-    [[1 0 0]
-     [0 1 0]
-     [vx vy 1]]))
+  ([v] (translation v 1))
   ([[vx vy] d]
    (->Matrix
     [[1 0 0]
