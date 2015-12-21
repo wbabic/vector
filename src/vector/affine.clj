@@ -8,13 +8,13 @@
 
 ;; implemented as functions on R2, the plane
 (defn translate
-  ""
+  "returns function that translates by vector v"
   [[vx vy]]
   (fn [[x y]]
     [(+ x vx) (+ y vy)]))
 
 (defn rotate
-  ""
+  "returns function that rotates by theta about origin counter clockwise"
   [theta]
   (let [c (Math/cos theta)
         s (Math/sin theta)]
@@ -23,13 +23,13 @@
        (+ (* s x) (* c y))])))
 
 (defn reflect
-  "reflection in x-axis"
+  "returns function of reflection in x-axis"
   []
   (fn [[x y]]
     [x (- y)]))
 
 (defn scale
-  ""
+  "returns scale function"
   ([s] (scale s s))
   ([sx sy]
    (assert (and (not (zero? sx)) (not (zero? sy))))
@@ -37,19 +37,16 @@
      [(* sx x) (* sy y)])))
 
 (defn shear-x
-  ""
+  "shear function along x-axis"
   [s]
   (fn [[x y]]
     [x (+ (* s x) y)]))
 
 (defn shear-y
-  ""
+  "shear function along y-axis"
   [s]
   (fn [[x y]]
     [(+ (* s y) x) y]))
-
-;; similarities
-;; motions
 
 (defn radial
   ""
