@@ -12,4 +12,5 @@
                  [org.clojure/math.combinatorics "0.1.1"]
                  [com.gfredericks/exact "0.1.8"]
                  [aysylu/loom "0.5.0"]
-                 [org.clojure/core.logic "0.8.10"]])
+                 [org.clojure/core.logic "0.8.10"]
+                 [funcool/cats "1.2.1"]])

@@ -280,6 +280,14 @@
 
    mathematicians
    Euler Gauss Kummer Riemann Schwarz
+** funcool cats
+   https://github.com/funcool/cats
+   http://funcool.github.io/cats/latest/
+   [funcool/cats "1.2.0"]
+   (require '[cats.builtin])
+   (require '[cats.core :as m])
+   (require '[cats.monad.maybe :as maybe])
+
 ** references
 *** loom
     https://jkkramer.wordpress.com/2010/08/27/fun-with-clojure%C2%A0turning-cats-into-dogs-in-hanoi/
