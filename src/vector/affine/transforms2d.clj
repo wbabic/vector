@@ -1,5 +1,5 @@
 (ns vector.affine.transforms2d
-  "2d affine transforms in matrix form"
+  "2d affine transforms in matrix form using affine coordinates and matrices"
   (:refer-clojure :exclude [vector vector? apply])
   (:require
    [clojure.core.matrix :as m]
