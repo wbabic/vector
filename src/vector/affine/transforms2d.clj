@@ -5,10 +5,11 @@
    [clojure.core.matrix :as m]
    [clojure.core.matrix.operators :as o]))
 
-  (comment
+(comment
   (require '[vector.affine.transforms2d] :reload)
   (in-ns 'vector.affine.transforms2d)
-  (use 'clojure.repl))
+  (use 'clojure.repl)
+  )
 
 ;; affine coordinates
 ;; vectors [x y 0]
@@ -16,10 +17,6 @@
 ;; vectors have direction and length
 ;; vectors don't translate
 ;; points have no direction or length
-
-;; position -> point, heading -> vector
-
-(def initial-turtle {:position (point 0 0) :heading (vector 1 0)})
 
 ;; a transform can be applied to a vector or point
 ;; has an inverse and can be composed with other transforms
@@ -54,6 +51,10 @@
 ;; conformal transformations as data
 (def origin (point [0 0]))
 (def zero-vector (vector [0 0]))
+
+;; position -> point, heading -> vector
+(def initial-turtle
+  {:position origin :heading (vector 1 0)})
 
 (defrecord Matrix [M])
 
@@ -119,7 +120,9 @@
   ;;=> [4 4 1]
   (apply-transform (translation [3 4]) (vector 1 0))
   ;;=> [1 0 0]
-
+  (map (partial apply-transform (translation [3 4] 2))
+       [(point 1 0) (vector 1 0)])
+  ;;=> ([7 8 1] [1 0 0])
   (apply-transform (rotation (/ Math/PI 2)) [1 0 1])
   ;;=> [6.123233995736766E-17 1.0 1]
 
@@ -163,7 +166,7 @@
 ;; reuduce turtle
 (defn transform-turtle
   [transform turtle]
-  (let [f #(apply-transform transform %)]
+  (let [f (partial apply-transform transform)]
     (-> turtle
         (update-in [:position] f)
         (update-in [:heading] f))))
@@ -176,4 +179,15 @@
   (transform-turtle
    (rotation (/ Math/PI 2))
    initial-turtle)
+  )
+
+(defn reduce-tfns [t & ts]
+  (reduce
+   (fn [res trans]
+     (compose res trans))
+   t
+   ts))
+
+(comment
+  (reduce-tfns (translation [2 3]) (rotation (/ Math/PI 3)) (scale [2 3]))
   )

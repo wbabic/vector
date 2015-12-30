@@ -288,6 +288,20 @@
    (require '[cats.core :as m])
    (require '[cats.monad.maybe :as maybe])
 
+** affine coordinates
+   make distinction between points and vectors
+   conformal affine transformations of the plane implemented as matrices
+   translatation, rotation, uniform scaling (about a point)
+   in the affine plane
+   compose via matrix multiplication
+
+   points trnslate
+   vectors do not
+
+   affine transforms apllied to points and vectors
+** homogeneous coordinates
+   http://www.mat.ucsb.edu/594cm/2010/Week1/homog-coords.pdf
+   impemented in affine/transflorms2d.clj
 ** references
 *** loom
     https://jkkramer.wordpress.com/2010/08/27/fun-with-clojure%C2%A0turning-cats-into-dogs-in-hanoi/
