@@ -1,5 +1,6 @@
 (ns vector.affine.transforms2d
-  "2d affine transforms in matrix form using affine coordinates and matrices"
+  "2d affine transforms in matrix form using affine coordinates and matrices
+  makes use of core.matrix"
   (:refer-clojure :exclude [vector vector? apply])
   (:require
    [clojure.core.matrix :as m]
@@ -189,5 +190,5 @@
    ts))
 
 (comment
-  (reduce-tfns (translation [2 3]) (rotation (/ Math/PI 3)) (scale [2 3]))
+  (reduce-tfns (translation [2 3]) (rotation (/ Math/PI 3)) (scale 2))
   )

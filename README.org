@@ -300,8 +300,13 @@
 
    affine transforms apllied to points and vectors
 ** homogeneous coordinates
+   ideas from the following which has references:
    http://www.mat.ucsb.edu/594cm/2010/Week1/homog-coords.pdf
-   impemented in affine/transflorms2d.clj
+
+   as a basis for projective geometry
+   to project a three dimensional scene onto a two dimensional image plane
+
+   implemented in affine/transflorms2d.clj
 ** references
 *** loom
     https://jkkramer.wordpress.com/2010/08/27/fun-with-clojure%C2%A0turning-cats-into-dogs-in-hanoi/
@@ -346,6 +351,28 @@
 *** CSS grids
     https://css-tricks.com/dont-overthink-it-grids/
     http://codepen.io/chriscoyier/pen/eGcLw
+
+*** computer graphics
+    from
+    http://www.mat.ucsb.edu/594cm/2010/Week1/homog-coords.pdf
+
+    Riesenfeld, R.F. Homogeneous Coordinates and Projective Planes in Computer Graphics.
+    IEEE Computer Graphics and Applications 1 (1), Jan., 1981, pp. 50-55.
+
+    Penna, M.A., Patterson, R.R. Projective Geometry and its Application to Computer Graphics.
+    Prentice Hall, Englewood Cliffs, N.J., 1986.
+
+    Kantani, K. Computational Projective Geometry.
+    Computer Vision, Graphics, and Image Processing 54, 1991.
+
+    Herman, I. The Use of Projective Geometry in Computer Graphics.
+    Lecture Notes in Computer Science 564, Springer Verlag, 1991.
+
+    Coxeter, H.S.M. Projective Geometry (second edition),
+    Springer-Verlag, New York, 1987.
+
+    Blinn, J. A Trip down the Graphics Pipeline: the Homogeneous Perspective Transform.
+    IEEE Computer Graphics and Applications. May, 1993, pp. 75-80.
 
 ** License
    Copyright © 2015 FIXME
